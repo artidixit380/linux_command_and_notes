@@ -1,0 +1,90 @@
+
+1. Whats is computer Network
+   mutiple computer/server connected to each other by networking for transforming data.
+
+2. why networking is useeful devops:
+   hekpful for devops
+
+3.How does internet work.
+  india ----> netflix (usa)
+  networking through sea (optical cable). but how its work
+  1. request www.netflix.com through browser via HTTP, HTTPS protocal html.
+  2. netflix server placed in USA : they have ip address
+  3. DNS domain name service (work as phone book)
+     net.com is mapped with one ip address 
+     DNS have all lookup
+     DNS -> ip add -> netflix server 
+  4. traceroute netflix.com  (how many request has done)
+
+
+4. OSI Model: used for run the server 
+   app (HPPT)
+   presentation (syntax, security)
+   session (API, socket)
+   Transport (TCP)
+   Network (Packet)
+   Data link (Ethernet)
+   physical
+
+  software (app, presentation, sessin, trasnport)
+  hardware (network, datalink, Physical) APST NDP
+
+5.TCP/IP
+  application layer 
+  transport
+  internet
+  network access
+
+
+6. IP/Subnet
+   each device who access internet has  IP address. 
+   IPV4 limited -> solution
+   IPV6 launch infinite
+   
+   1 internet/network/vPc in that subnetwok (mini network)
+   subnet: we divided our own ip address
+
+7. DNS/NAT/Firewalls
+
+
+networking setting of EC2
+
+internet -> aws cloud -> VPC -> ec2 instance/devices ->
+
+dns: 
+i have ip address mappaed with DNS
+godady.com login you can purchase
+IPV4 map record A
+IPV6 mapping record AAAA
+tarinwith.com
+in that we create one record junnon with our ip address & now check on browser
+http://junnon.trainwith.com  (Its open now)
+
+8. Ping/traceroute/nslookup
+   nslookup junno.trainwith.com      #website ip address
+  ping junnon.tainwith.com
+  traceroute junno.tracewithshubnam.com
+  nslook junno.tracewithshubnam.com
+
+9. Load balancer
+   NAT: network add trnslation gateway
+   route table : in that all addresses
+
+
+
+
+
+
+ipv4:172.16.3.4 AND 10.1.2.4 
+EACH NO FROM 0-255 
+4 BYTES 32 BITS
+
+subnets
+private and public
+for public -> route table ->> ibnternet gatway
+
+CIDR block:is a way of explaination how many IP addrss available in subnet
+
+eg. create subnet -> CIDR 172.16.3.0/24 (256 ip addresses)
+
+ports: eg in vm im deploying app /or unique no for app.

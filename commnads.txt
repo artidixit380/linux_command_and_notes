@@ -1,0 +1,73 @@
+📂 File & Directory Navigation
+pwd                     # Show current directory
+ls                      # List files
+ls -l                   # Detailed list
+ls -lh                  # Human readable size
+ls -a                   # Show hidden files
+cd /path/to/dir         # Change directory
+cd ..                   # One level back
+cd ~                    # Home directory
+
+📄 Create Files & Directories
+touch file.txt          # Create empty file
+mkdir mydir             # Create directory
+mkdir -p a/b/c          # Create nested directories
+
+🗑️ Delete Files & Directories
+rm file.txt             # Delete file
+rm -r mydir             # Delete directory
+rm -rf mydir            # Force delete (⚠ dangerous)
+rmdir emptydir          # Delete empty directory
+
+📋 Copy Files & Directories
+cp file1 file2          # Copy file
+cp file1 /tmp/          # Copy to another location
+cp -r dir1 dir2         # Copy directory
+
+✏️ Move / Rename Files
+mv old.txt new.txt      # Rename file
+mv file.txt /tmp/       # Move file
+
+👀 View File Content
+cat file.txt            # Show content
+less file.txt           # Scroll view
+more file.txt           # Page view
+head file.txt           # First 10 lines
+tail file.txt           # Last 10 lines
+tail -f file.log        # Live log monitoring
+
+🔍 Search Files & Content
+find / -name file.txt           # Find file by name
+find . -type f                 # All files
+grep "error" file.log          # Search word in file
+grep -r "nginx" /etc/          # Recursive search
+
+🔐 File Permissions & Ownership
+ls -l                    # Check permissions
+chmod 644 file.txt       # Change permissions
+chmod +x script.sh       # Make executable
+chown user file.txt      # Change owner
+chown user:group file.txt
+
+📊 File Size & Disk Usage
+du -sh file.txt          # File size
+du -sh folder/           # Folder size
+df -h                    # Disk usage
+
+🗜️ Compression & Archiving
+tar -cvf backup.tar folder/
+tar -xvf backup.tar
+tar -czvf backup.tar.gz folder/
+tar -xzvf backup.tar.gz
+
+🧠 Useful File Utilities
+stat file.txt            # File details
+file file.txt            # File type
+wc -l file.txt           # Line count
+
+⭐ Interview Tip
+
+Most asked commands:
+ls, cp, mv, rm, chmod, chown, find, grep, tar
+
+

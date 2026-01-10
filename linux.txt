@@ -1,0 +1,384 @@
+
+
+linux has own scripting lang bash but also support python, perl
+
+learn
+installation/setup linux server
+linux distribution 
+liunx comm
+file structure
+
+1. How to crete and delete user in linux
+   Creating user : sudo useradd bhima
+   creating pass for user : sudo passwd bhima
+   switch user : sudo su bhima
+   deleting user: sudo deluser bhima
+   
+
+1. Process Management
+     *viewing process:
+      ps:                active process
+      ps aux:            all running process
+      top:               system process with resource usages
+      pgrep<name>        process ID by name
+      kill pid
+      kill -9 pid        force killing
+    
+     *Monitoring and Controlling Resources
+
+    nice	                 Starts a process with a specific priority.
+    renice <priority> -p <PID>	 Changes priority of a running process.
+    ulimit                       Controls user-level resource limits.   
+ 
+   *Job Control (Shell Processes)
+
+   jobs	Lists background         jobs in the shell.
+   bg %<job_number>
+	        Resumes a job in the background.
+   fg %<job_number>	        Brings a job to the foreground.
+   Ctrl + Z	               Suspends a process (moves to background).
+   &	                       Runs a command in the background.                   
+                  
+   
+
+2.File management
+  Searching Files
+
+  find <path> -name <pattern>	Finds files/directories by name.
+  locate <filename>	Fast search using a prebuilt index (run updatedb first).
+  grep <pattern> <file>	Searches inside files for matching text.
+
+📦 File Compression
+
+   tar -cvf file.tar dir/	Creates a tar archive.
+   tar -xvf file.tar	        Extracts a tar archive.
+   gzip <file>	                Compresses a file (adds .gz).
+   gunzip <file.gz>	        Decompresses a .gz file.
+   zip <archive.zip> <file>	Creates a zip archive.
+   unzip <archive.zip>	        Extracts a zip archive. 
+
+
+3. User Management
+
+
+👤 User Management
+
+adduser <username>	         Adds a new user (interactive, preferred on Debian/Ubuntu).
+useradd <username>	         Adds a new user (more basic, used in scripts).
+passwd <username>	         Sets or changes a user's password.
+deluser <username>	         Deletes a user (Debian-based).
+userdel <username>	         Deletes a user and optionally their home directory.
+usermod -aG <group> <user>	Adds a user to a group (append).
+usermod -l <newname> <oldname>	Renames a user.
+whoami	                        Displays the current logged-in user.
+id <username>	                Shows UID, GID, and group memberships.
+
+👥 Group Management
+Command	Description
+groupadd <groupname>	Creates a new group.
+groupdel <groupname>	Deletes a group.
+groupmod -n <newgroup> <oldgroup>	Renames a group.
+gpasswd -a <user> <group>	Adds a user to a group.
+gpasswd -d <user> <group>	Removes a user from a group.
+groups <username>
+
+🔐 Permission and Ownership
+Command	Description
+chown <user>:<group> <file>	Changes ownership of a file.
+chmod <permissions> <file>	Changes file access permissions.
+chmod +x <file>	Makes a file executable.
+ls -l	Lists files with ownership and permissions.
+
+
+3.Memory and Disk Management:
+   
+🧠 Memory Management Commands
+Command	Description
+free -h	Shows free and used memory in human-readable format.
+top	Real-time view of memory and CPU usage.
+htop	Enhanced version of top with a better UI (may require installation).
+vmstat	Reports memory, CPU, and I/O usage.
+cat /proc/meminfo	Displays detailed memory usage info from the system file.
+ps aux --sort=-%mem	Lists processes sorted by memory usage.
+watch -n 1 free -m	Continuously monitor memory usage every second.
+
+💽 Disk Management Commands
+Command	Description
+df -h	Shows disk usage of file systems in human-readable format.
+du -sh /path/to/dir	Shows the size of a specific directory.
+lsblk	Lists information about block devices (partitions, drives).
+fdisk -l	Lists disk partitions and details.
+mount	Mounts a file system.
+umount	Unmounts a file system.
+blkid	Lists block device attributes like UUID, type, etc.
+parted / gparted	Tools for disk partitioning (gparted has a GUI).
+mkfs	Creates a new file system on a partition (e.g., mkfs.ext4 /dev/sdX1).
+tune2fs	Adjusts tunable parameters on ext filesystems.
+
+
+ system info commands
+
+General System Info
+
+uname -a	Shows all system information (kernel, architecture, etc).
+hostnamectl	Displays hostname and basic system information (OS, kernel).
+uptime	Shows how long the system has been running.
+whoami	Displays the current logged-in user.
+id	Shows user ID (UID) and group ID (GID) info.
+date	Displays current date and time.
+
+⚙️ Hardware Info
+
+lscpu	CPU architecture details.
+lsblk	Lists block devices (disks and partitions).
+lspci	Lists PCI devices (like graphics cards, network cards).
+lsusb	Lists USB devices.
+dmidecode	Shows detailed hardware info (BIOS, RAM, etc). Requires sudo.
+free -h	Memory usage summary in human-readable format.
+df -h	Disk space usage of mounted file systems.
+
+📦 OS & Kernel Info
+Command	Description
+cat /etc/os-release	Shows OS distribution details.
+uname -r	Displays the kernel version.
+lsb_release -a	Displays LSB (Linux Standard Base) version info (may need lsb-release package).
+
+🔧 System Resource Usage
+
+top or htop	Real-time CPU, memory usage.
+vmstat	Reports virtual memory stats.
+iostat	CPU and disk I/O stats (from sysstat package).
+sar	System activity report over time.
+
+
+
+
+
+
+Beginner Linux Questions
+
+1. Can you explain what Linux is and its basic components? Also, what is LVM and why is it important?
+
+Linux is an open-source operating system modeled on UNIX. It's essential for DevOps due to its stability, security, and flexibility.
+
+The core components of Linux include:
+
+Kernel: The core that interacts with hardware and manages resources
+Shell: The user interface that interprets commands
+Directory Structure: A hierarchical filesystem starting from the root ("/")
+Daemons: Background processes for services like printing and networking
+
+LVM, or Logical Volume Manager, provides flexibility in managing disk space.
+It allows easier resizing and moving of filesystems without service interruption, improved storage utilization, and easier backups.
+
+
+
+2. What are inodes and what data do they store?
+
+Inodes are fundamental to understanding how Linux manages files. An inode is a data structure that stores metadata about a file, 
+excluding its name and data.
+
+The fields in an inode include:
+
+File type (regular, directory, link)
+Permissions
+Owner and group owner
+File size
+Access, change, and modification times
+Hard links count
+Pointers to data blocks
+Inodes are used whenever the system needs to access file metadata, so understanding inodes helps in tasks like file recovery, performance tuning, and understanding filesystem limits.
+
+
+3. How would you find where a particular file is located in a Linux system?
+Locating files efficiently is a key skill in system administration.
+
+There are a few methods, but I recommend using either the find or plocate commands for this purpose.
+
+For example:
+
+find / -name testfile searches the entire filesystem, while find . -name testfile searches the current directory.
+
+
+
+
+4. Why use plocate and not locate?
+plocate is a more modern alternative to locate and offers several advantages, especially in terms of performance and efficiency.
+
+It’s designed to be faster and more efficient, especially on large filesystems, and uses a more compact index format, which can speed up both the indexing process and the search operation.
+
+NMot only that, but it efficiently handles the indexing of very large numbers of files, making it suitable for modern systems with extensive file collections.
+
+
+
+5. How would you delete empty files from a directory?
+Managing and cleaning up files is crucial for maintaining system performance, and helps maintain an organized
+ filesystem and optimizes storage usage.
+
+You can use the find command to locate and delete empty files.
+
+What to learn more about commands? Check out my Linux commands cheatsheet here.
+
+For example
+
+find /path -type f -empty -delete
+However, if deletion fails, it may be due to insufficient permissions or write protection.
+
+Why would the interviewer ask you about this?
+
+They want to see your knowledge of filesystem maintenance and your approach to handling permissions issues.
+
+So a good answer might be something like:
+
+"To delete empty files, I use the find command with -empty and -delete options, like find /path -type f -empty -delete. 
+If deletion fails, I check permissions using ls -l."
+
+
+6. What is the purpose of the ps command in Linux, and how would you use it in system monitoring and process management?
+The ps command in Linux is a tool for process monitoring and management.
+
+It provides information about currently running processes,
+ including their PIDs, CPU usage, and memory usage, which is crucial information for 
+understanding system performance and troubleshooting issues.
+
+
+
+
+
+Intermediate Linux Questions
+
+7. Can you explain what a virtual desktop is in the context of Linux and how you have utilized it in your previous roles?
+Virtual Desktops enhance workspace organization and multitasking, by allowing users to switch between multiple desktops, each with its own set of applications and windows.
+
+The benefits include better organization, reduced distractions, and increased productivity. This feature is also useful for separating different tasks, such as coding, monitoring, and communication.
+
+
+
+
+8. What are the different file and folder permissions in Linux and how would you modify these permissions?
+
+Understanding permissions is critical for system security and user access management.
+
+In Linux, file permissions include
+
+read (r)
+write (w)
+execute (x)
+for user (u)
+group (g), and
+others (o)
+To change permissions, you use the chmod command. For instance, chmod u+rwx file.txt gives the user read, write, and execute permissions.
+
+Why would the interviewer ask you about this?
+
+They want to assess your understanding of Linux security and access management.
+
+So a good answer might be something like:
+
+"In Linux, file permissions include read (r), write (w), and execute (x) for user (u), group (g), and others (o). 
+To change permissions, use the chmod command, e.g., chmod u+rwx file.txt to give the user read, write, and execute permissions."
+
+9. How and why would you change ownership of a file?
+Proper ownership management ensures security and proper access. You use the chown command to change file ownership. 
+For example, chown user1 file.txt changes the ownership of file.txt to user1.
+
+However, only the root user can change file ownership. This is necessary for maintaining proper access control and user management.
+
+
+
+"To change file ownership, use the chown command, e.g., chown user1 file.txt. Only the root user can change ownership, which ensures proper security and access control."
+
+10. How would you differentiate between a process and a thread in a Linux environment, and why is this difference significant?
+
+Processes and threads are fundamental concepts in Linux, crucial for performance and resource management.
+
+A process is an independent block of instructions with its own memory space and environment settings
+A thread is a subset of a process sharing the same memory space, used for concurrent task execution.
+Knowing the difference helps in program design, system troubleshooting, and efficient resource allocation.
+
+
+"In Linux, a process is an independent block of instructions that the system executes, 
+while a thread is a segment of a process that can execute concurrently with other segments.
+
+Threads within the same process share the same memory space and resources, making them lightweight and quicker to create and destroy.
+ Knowing the difference is essential for tasks like program design, system troubleshooting, and resource allocation."
+
+Advanced Linux Questions
+
+11. As a DevOps Engineer, how would you manage resource allocation for different users and processes in a Linux system?
+You can use the ulimit command to set user-level limits on system resources, such as maximum file size, CPU time, and memory usage.
+
+But, for more granular control, you can use Control Groups (cgroups) to limit, account for, and
+ isolate resource usage for groups of processes.
+
+Why would the interviewer ask you about this?
+
+Efficient resource management ensures optimal system performance and stability. So, they want to evaluate your resource management strategies and familiarity with Linux tools.
+
+A good answer might be something like:
+
+"I would use Linux's built-in resource management tools to control and manage resource allocation.
+
+For instance, using the ulimit command, I can set soft and hard limits on resources per user basis, limiting how much of a system's resources a user can consume.
+
+For more granular control, I might use cgroups to set resource usage limits per process."
+
+12. How might you use the nice and renice commands in managing process priorities in Linux?
+In Linux, the nice and renice commands are fundamental in managing process priorities.
+
+nice allows us to start a process with a specified priority
+While renice allows us to change the priority of an already running process
+renice is particularly useful in a multithreaded environment where we need to prioritize more critical tasks over others.
+
+
+"In Linux, the nice command is used to start a process with a specific priority, and renice is used to change the priority of an existing process. These tools help manage system performance by ensuring critical tasks receive the necessary CPU time over less critical ones."
+
+13. How do you configure IP addressing and set up a firewall in a Linux system?
+Configuring IP addresses and setting up firewalls are fundamental tasks for managing network settings and security in a Linux system.
+
+For example
+
+For static IP assignment, the ip command is used.
+
+ip addr add 192.168.1.10/24 dev eth0 assigns the IP address 192.168.1.10 to the eth0 interface. 
+
+Whereas for dynamic assignment, you configure the interface to use DHCP.
+
+For firewall setup, iptables is a common command-line utility used to set up, maintain, and inspect the tables of IP packet filter rules. 
+For example, iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT allows incoming SSH traffic.
+
+Why would the interviewer ask you about this?
+
+They want to assess your ability to manage network settings and security, which is crucial for DevOps roles.
+
+You can pretty much just tell them the same information as above when asked.
+
+"To configure IP addresses, I use the ip command for static assignment, such as ip addr add 192.168.1.10/24 dev eth0.
+
+For dynamic assignment, I configure the interface to use DHCP.
+
+For firewall setup, I use iptables, for example, iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT to allow incoming SSH traffic."
+
+14. How do you troubleshoot network connectivity issues in a Linux system?
+Several tools are available for this, such as ping for testing network connectivity, traceroute for tracing the route that packets take, and netstat for network statistics.
+
+"There are several commands in Linux for network troubleshooting.
+
+the ping command, which can verify if the network and the host are reachable. 
+The traceroute command is also useful as it shows the path a packet takes to reach the host. Moreover, netstat is another powerful command used to display a variety of network-related information.
+netstat -tuln would list all TCP and UDP ports that are listening for connections."
+
+15. What is shell scripting, and how have you used it in your previous roles?
+Shell scripting is a feature of Linux that allows you to automate tasks.
+
+A shell script is simply a file containing a series of commands. The shell reads this file and carries out the commands as they are listed.
+
+So in essence, shell scripting is basically writing a series of commands for the shell to execute. It can then use this to automate repetitive tasks, save time, and avoid errors.
+
+
+
+
+
+
+   
+   

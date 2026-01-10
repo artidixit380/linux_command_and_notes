@@ -1,0 +1,640 @@
+
++----------------------------------------------------+
+| User Applications (Vim, Docker, Apache, etc.)     |
++----------------------------------------------------+
+| Shell (Bash, Zsh, Fish, etc.)                     |  <-- Part of the OS
++----------------------------------------------------+
+| System Libraries (glibc, libc, OpenSSL, etc.)     |  <-- Part of the OS
++----------------------------------------------------+
+| System Utilities (ls, grep, systemctl, etc.)      |  <-- Part of the OS
++----------------------------------------------------+
+| Linux Kernel (Process, Memory, FS, Network)       |  <-- Core of the OS
++----------------------------------------------------+
+| Hardware (CPU, RAM, Disk, Network, Peripherals)   |
++----------------------------------------------------+
+
+
+sudo su -
+cd /
+
+root@ubuntu -dev:/#
+
+path meaning
+ubutu: hostname
+/ : filesystem-> storage
+
+
+ubuntu @dev:~/$    #login on ec2
+
+
+path meaning
+ubuntu : user
+dev : hostname
+~ : /home/ubuntu
+here ` is home directory of user that we loged in
+
+ls -ltr 
+sudo su -
+cd /
+
+Understanding the Folder Structure
+Explanation of System Directories
+Symbolic Links (Less Significant)
+Directory	Description
+/sbin -> /usr/sbin	System binaries  for administrative commands (linked to /usr/sbin).
+/bin -> /usr/bin	Essential user binaries (linked to /usr/bin).
+/lib -> /usr/lib	Shared libraries and kernel modules (linked to /usr/lib).
+
+Important System Directories
+Directory	Description
+/boot	Stores files needed for booting the system (not relevant in containers).
+/usr	Contains most user-installed applications and libraries.
+/var	Stores logs, caches, and temporary files that change frequently.
+/etc	Stores system configuration files.
+
+User & Application-Specific Directories
+Directory	Description
+/home	Default location for user home directories.
+/opt	Used for installing optional third-party software. (java, python)  # when u want install java go to cd/opt  then download or add file
+/srv	Holds data for services like web servers (rarely used in containers).
+/root	Home directory for the root user.
+
+Temporary & Volatile Directories
+Directory	Description
+/tmp	Temporary files (cleared on reboot).
+/run	Holds runtime data for processes.
+/proc	Virtual filesystem for process and system information.
+/sys	Virtual filesystem for hardware and kernel information.
+/dev	Contains device files (e.g., /dev/null, /dev/sda).
+
+Mount Points
+Directory	Description
+/mnt	Temporary mount point for external filesystems. (use admin for adding volume )
+/media	Mount point for removable media (USB, CDs).
+/data	Likely your mounted volume from Windows (C:/ubuntu-data).
+
+
+monut example:
+admin create one ec2 with 20 gb and he want add some space : admin procure 30 gb and mount it on /mnt on temporary and then add this disk to the file system
+
+Episode 3:
+
+file management:
+ useradd arti  #here I'm creating one user
+ vim /etc/passwd  #run this cmd and check user is created if we got entry in this file means user got created
+ 
+ how to create a password for your usr 
+ passwd arti  #here arti is user name 
+ 
+ now we want check password is created or not.
+ cat /etc/shadow   #here we got encrypted password
+ 
+ deleting user
+ userdel arti
+ 
+ ls /home/   # here no home directory for arti 
+ 
+so use this commnad
+adduser arti
+ls /home/arti/    # the directory is created
+
+su - arti
+rm -rf /sbin # permission denied 
+
+differance between useradd and adduser
+
+useradd: we user this at the time of writing script bcz they dont want input.
+adduser: create home directory
+
+can you restorepassword of linux user.
+no when password not stored in Ldap or SSO of orgi
+
+n 
+
+
+Creating Groups
+groupadd groupname
+groupadd devops
+
+Adding Users to Groups
+usermod -aG groupname username
+usermod -aG devops abhishek
+
+cat /etc/group
+
+we you join comapny admin provide you password ip add, user name.
+SSH client
+
+ssh arti@ip add
+whoami
+uname -a
+
+
+Viewing Group Memberships
+groups username
+Changing Primary Group
+usermod -g new_primary_group username
+
+Sudo Access and Privilege Escalation
+Adding a User to Sudo Group
+
+On Debian-based systems:
+usermod -aG sudo username
+
+On RHEL-based systems:
+usermod -aG wheel username
+Granting Specific Commands with Sudo
+Edit the sudoers file:
+
+visudo
+Then add:
+
+username ALL=(ALL) NOPASSWD: /path/to/command
+
+
+ File management 
+ 
+ ls:list of file
+ pwd : present working directory
+ mkdir arti: new directory
+ rmdir arti: remove directory
+ touch artifile: craeted file
+ rm artifile : removing file
+ rm -rf arti : arti directory deleted
+ 
+cp arti artinew : copy file 
+mv arti artirename: rename the file
+
+vim artifile.txt
+
+here 1000 line in this file and i want want  first line 
+:0  #use this
+:500 # for 500 line
+
+shift u: remove the line 
+shift o : add line
+shift g: last line
+
+File Viewing and Editing
+cat file.txt – Displays file content.
+tac file.txt – Displays file content in reverse order.
+less file.txt – Opens a file for viewing with scrolling support.
+more file.txt – Similar to less, but only moves forward.
+head -n 10 file.txt – Displays the first 10 lines of a file.
+tail -n 10 file.txt – Displays the last 10 lines of a file.
+nano file.txt – Opens a simple text editor.
+vi file.txt – Opens a powerful text editor.
+echo 'Hello' > file.txt – Writes text to a file, overwriting existing content.
+echo 'Hello' >> file.txt – Appends text to a file without overwriting.
+
+
+Compression Commands
+i have 10 file . i want create folder of 10 file. compressed or Zip file
+
+zip: compress any file or folder
+
+sudo apt instal zip
+zip installed 
+
+zip -r lfd.zip linux_for_devops/       #here im creating zip of linux_for_devops folder(3 files) & lfd means li for devops
+here we got lfd.zip file
+
+now we want unzip this file
+
+we create one folder
+mkdir unzipped_file
+
+cp lfd.zip cloud/unzipped_files/ 
+unzip lfd.zip
+
+Tar 
+cloud is filder and we create zip of cloud folder 
+tar -cvzf cloud.tar.gz cloud  #here -c means compress v: info, Z: zip and clud.tax.gz file name  
+tar -xvzf cloud.tax.gz
+
+file transfer from local to server.
+scp -i all info  
+
+
+Fpisode 4
+
+File Permission
+
+create 2 user dev and qe
+
+adduser dev
+adduser qe
+
+ls /home/
+cat /ect/passwd
+
+set password
+passwd dev
+passwd qe
+
+su - dev
+su - qe
+
+in dev
+cd /tmp
+
+vim helloworld.sh
+
+#!/bin/bash
+echo hello world
+
+ls -ltr
+
+you will open this file in qa and edit 
+file will not be opened, bcz dont have permission
+
+(d)or(-) rw- rw- r--   : this represents d for directory and - for file , first set user, second set group , third set other
+
+-rw-r--r-- : for helloworld.sh 
+we wamt change this 
+
+chmod u=rwx helloworld.sh         #here we provide permission to user for execute this file
+./helloworld.sh
+
+u=user
+g=group
+o= other
+
+Read (r or 4) – View file contents.
+Write (w or 2) – Modify file contents.
+Execute (x or 1) – Run scripts or programs.
+
+all means 7
+
+rwx rwx rwx: chmod 777 filename
+rw- rw- rw-: 666 filename
+
+r-- r-- r-- : chmod 444 file
+
+r-- --- --- : chmod 400 filename
+
+chown
+
+here helloworld.sh has developer owner and want change the owner
+chown qe:qe helloworld.sh 
+
+same permission for folder
+
+episode 5 : process management. monitoring, networking and disk managemnt
+
+process management:
+example you running python app on linux servers which is one process
+This process utilises most of the hardware's resources. some time 100% mem will be used. so you want to check process
+view process
+kill process, stop, resume
+prioritize or deprioritize the process
+called as process management
+
+ps aux : all running process
+ps aux | nl         #here nl is line means output got with line no
+ps aux | wc -l    # totalcount
+ps -ef  #   same as ps aux
+
+diff between ps aux and ps -ef
+ps aux run we got cpu and mem utilization
+but ps -ef not show mem utilization
+
+Kill processid 
+
+ps aux | grep java  | grep -v grep    #filter output
+
+kill -9 .processid  #forcefully kiling process
+
+renice -n 10 -p 4048  # docker and ICU patient example
+
+special process is called services 
+services are background running processes that restart at boot of server.
+services come automatically,
+pyhon application, java app, shell script : processes
+web server apachi, nginx : services.
+
+systemctl list-units -- type=service
+systemctl stop cron.service
+
+
+
+Monitoring
+try to check which process consumming cpu, mem, disk and file also.
+
+CPU and Memory Monitoring
+
+top – Real-time system monitoring
+htop – Interactive process viewer (requires installation)
+vmstat – Report system performance statistics (if one of instance not running fast)
+free -m or -h – Show memory usage
+nproc: how many cpu in machine 
+df -h : disk utilization
+du -sh : 
+du -sh * : imp command
+
+
+Networking: see the video
+
+disk management:
+
+Viewing Disk Information
+lsblk – Display block devices (blocks attached to instance)
+fdisk -l – List disk partitions
+blkid – Show UUIDs of devices
+df -h – Check disk space usage
+du -sh /path – Show size of a directory
+
+Disk and Storage Management in Linux
+Introduction to Disk and Storage Management
+Managing disks and storage efficiently is crucial for system performance and stability. Linux provides various commands to monitor, partition, format, mount, and manage disk storage.
+
+Index of Commands Covered
+Viewing Disk Information
+lsblk – Display block devices
+fdisk -l – List disk partitions
+blkid – Show UUIDs of devices
+df -h – Check disk space usage
+du -sh /path – Show size of a directory
+Partition Management
+fdisk /dev/sdX – Create and manage partitions
+parted /dev/sdX – Alternative to fdisk for GPT disks
+mkfs.ext4 /dev/sdX1 – Format a partition as ext4
+mkfs.xfs /dev/sdX1 – Format a partition as XFS
+Mounting and Unmounting
+mount /dev/sdX1 /mnt – Mount a partition
+umount /mnt – Unmount a partition
+mount -o remount,rw /mnt – Remount a partition as read-write
+Logical Volume Management (LVM)
+pvcreate /dev/sdX – Create a physical volume
+vgcreate vg_name /dev/sdX – Create a volume group
+lvcreate -L 10G -n lv_name vg_name – Create a logical volume
+mkfs.ext4 /dev/vg_name/lv_name – Format an LVM partition
+mount /dev/vg_name/lv_name /mnt – Mount an LVM partition
+Swap Management
+mkswap /dev/sdX – Create a swap partition
+swapon /dev/sdX – Enable swap space
+swapoff /dev/sdX – Disable swap space
+Viewing Disk Information
+Using lsblk
+List all block devices:
+
+lsblk
+Using fdisk
+View partition details:
+
+fdisk -l
+Using df
+Check available disk space:
+
+df -h
+Using du
+Find the size of a directory:
+
+du -sh /var/log
+Partition Management
+Creating a Partition with fdisk
+fdisk /dev/sdX
+Follow the interactive prompts to create a partition.
+
+Formatting a Partition
+Format as ext4:
+
+mkfs.ext4 /dev/sdX1
+Format as XFS:
+
+mkfs.xfs /dev/sdX1
+Mounting and Unmounting
+Mount a Partition
+mount /dev/sdX1 /mnt
+Unmount a Partition
+umount /mnt
+Remount a Partition
+mount -o remount,rw /mnt
+LVM Management
+Create a Physical Volume
+pvcreate /dev/sdX
+Create a Volume Group
+vgcreate vg_name /dev/sdX
+Create a Logical Volume
+lvcreate -L 10G -n lv_name vg_name
+Format and Mount the Logical Volume
+mkfs.ext4 /dev/vg_name/lv_name
+mount /dev/vg_name/lv_name /mnt
+Swap Management
+Create a Swap Partition
+mkswap /dev/sdX
+Enable Swap
+swapon /dev/sdX
+Disable Swap
+swapoff /dev/sdX
+Additional Notes - When to Use fdisk, mount, or Both
+Check Available Disks
+Before creating or mounting anything, always check what block devices exist:
+
+lsblk
+Example output:
+NAME	MAJ:MIN	RM	SIZE	RO	TYPE	MOUNTPOINT
+sda	8:0	0	100G	0	disk	
+├─sda1	8:1	0	96G	0	part	/
+└─sda2	8:2	0	4G	0	part	[SWAP]
+sdb	8:16	0	20G	0	disk	
+sda → existing disk (already partitioned)
+
+sdb → new disk, no partitions yet
+
+When to use fdisk
+Use fdisk when:
+
+The disk is brand new and has no partitions
+You want to create /dev/sdb1, /dev/sdb2, etc.
+Inside fdisk:
+
+Press n → create a new partition
+Press w → write changes
+Then confirm:
+
+lsblk
+When to Use mount
+Use mount when: The partition already exists and is formatted You just want to make it accessible
+
+sudo mkdir /mnt/mydisk
+sudo mount /dev/sdb1 /mnt/mydisk
+Now your disk is available at /mnt/mydisk.
+
+When to Use fdisk + mount (Full Setup)
+Use fdisk + mkfs + mount when: The disk is completely new You need to partition → format → mount it
+
+# 1. Check available disks
+lsblk
+# 2. Create partition
+sudo fdisk /dev/sdb
+# 3. Format the partition
+sudo mkfs.ext4 /dev/sdb1
+# 4. Mount it
+sudo mkdir /data
+sudo mount /dev/sdb1 /data
+Quick Reference
+Use Case	Command(s)
+View disks and partitions	lsblk
+Partition a new disk	fdisk
+Mount an existing partition	mount
+Full setup (new disk)	fdisk + mkfs + mount
+
+
+
+subham day4:networking
+
+1.ping : data transmitted and received
+  ping trainwithshubham.com
+
+sudo apt install net-tools (package required)
+2.netstat: 
+TCP connection check
+  active internet connection 
+ server varati konte konte active internet conection ahet.
+
+3. ifconfig :interface
+   this show network interfaces
+docker0
+eth0:ethernate cable connected to NIC (network ineterface card)
+lo: loop back
+
+4.traceroute youtube.com
+  route trace : youtube paryant janyasathi konte konte route follow kele te show karate.
+
+5.tracepath youtube.com  #show paths
+6.mtr: tracepath and ping mixture
+7.nslookup tarinwithshubham.com
+  :domain is working properly or not.
+8.Telnet tarinwithshubham.com 80 
+ 443 vs 80: 80 hhtp 443 https
+9.hoatname 
+show ip address
+10. ip
+11.iwconfig :wire
+12.ss : same as netstat
+13:dig trainwithshubham,com 
+   where this website hosted 
+14.whois trainwithshubham.com  (all info about, resistor domain, server, dns name)
+15.nc trainwithshubham.com
+16. arp
+17.ifplugstatus:interfaces is working or not
+
+*normaly used (imp)
+ curl: api calls
+ wget : download from intenet
+ iptables: 
+watch
+:output see ahfter 2 sec
+eg watch mtr trainwithshubham.com
+nmap:network map same route
+route
+
+DAY5 (pro Linux command)
+AWK
+SED
+GREP 
+
+AWK use: I have a system log file with 1000 line, i want extract data of line no 40. using this awk we do it
+head -n 50 app.log
+
+but we want date, time.
+awk {print $1} app.log    #means print first colume
+awk {print $1, $3,$4} app.log  
+awk /info/ {print $1} app.log   #here print only info word details line, we add filter
+awk /info/ {print $1} app.log > only_info.log  # we got file with info   
+when we use ec2, there are socket 
+how many time info got in output
+awk /INFO/ {count++} END {print count} app.log  #with the help of print we show the output on terminal
+8.53 tim3 log
+awk $2 >= 08.53:00 && $2 <= 08:53:59 {print $2, $3, $4} app.log
+
+awk NR >=2 && NR <=10 {print NR} app.log   #
+
+awk: programing lang access, data in formatted (CSV) then awk will be work
+
+SED: stream editor , syntactical, work line by line
+-n:exact match : exact output
+
+sed -n '/INFO/p' app.log   #p means print
+sed -n 's/INFO/LOG/g' app.log    #info reolace log and g means global, s means substring
+sed -n '-e /INFO/=' app.log      #showing line no where info is avaioable, here -e expression
+sed -n '-e /INFO/=  -e /INFO/p' app.log   #print also
+
+sed -n '1,10 s/INFO/LOG/' app.log  #from line 1 to 10 info replace log
+sed -n '1,10 s/INFO/LOG/g; 1,10p; 11q' app.log   # here ; means pause 
+
+
+awk: structed clume by clume
+sed: all data
+
+GREP: global regular expression pattern
+this is case insensitive -i (small capital)	
+
+grep -i info app.log
+grep -i -c info app.log   #show the count -c means count
+
+ps aux  :here we got all process
+but
+i want only ubuntu process
+ps aux | grep ubuntu
+
+now i want 2 column
+
+ps aux | grep ubutu | awk ' {print $2}'
+
+
+Linux volume management
+
+Linux volume & AWS EBS
+
+Linux volume: storage -> block (disk, volume)
+
+aws ebs : volume created
+aws give storage or root volume by default which is 8gb for ec2.
+
+
+lsblk: list the block (disk or volume) xvda means name of root vlume
+df -h : free disk space
+
+mount: when root volume (xvda) is attached to the machine then that one /dev/xvda 
+/: here Linux start eg cd /
+
+volume bind to location called mount (we want do extra mounting)
+volume bind to instance : attaching 
+ 
+volume created 10gb and 12gb on ebs, now we want attached 
+
+device name: dev/sdf in Linux translate in xvdf
+
+
+top
+ps aux
+pstree -p 
+netstat : inspect the network connection, which port open and 
+netstat  -tuln
+tcpdump :network troubleshotting
+app respons is delayed 
+sudo tcpdump -i enXO port 80
+ifconfig
+5.ping or traceroute
+df -h 
+df -sh folder
+free -h  :mem utilization
+
+logs of any services mananged by system d 
+journalctl 
+journalctl -u nginx : for particular services
+journalctl -b : cracshing any services
+
+process that using port
+lsof -i :8085    # 8085 port
+ls :list of open file
+dealing with large data with last 10 line
+tail -n 10 path
+
+shortcut
+
+
+
+
