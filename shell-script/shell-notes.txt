@@ -1,0 +1,446 @@
+shell scripting
+
+Only based on linux os
+
+ASK: means 
+
+Linux architecture.
+Application:
+Shell : shell lang for accessing kernel like door, means we access kernel 
+Kernel: kernel talk to hardware
+Harware: 
+             
+Shell Commands:
+
+Text editor for making file: vim, nano, gedit, vi)
+:wq!    - write and quite
+:qa!     - quite without saving
+
+Create one folder
+Mkdir first-shell-code
+vim first-shell.sh
+
+how linux execute this file as shell a file. 
+#!/bin/bash
+
+which bash    #this comm told you which bash is running in your PC
+/usr/bin/bash
+
+We want Executable shell script
+ls -l : this command told you file permission
+
+Chmod 754 file name (user, group mem, other user) 7: rwe, 5-re, 4-r
+ls -l
+
+./hello.sh  #current folder
+
+
+Day2: Basic scriptiong skill
+
+  1. Variables ($)
+  2. Arguments
+  3. conditional
+  4. Loops
+  5. functions
+
+1. Variables
+mean:
+
+   
+vim variable-scripting.sh
+   
+#!/bin/bash
+name="arti"
+echo "Name is $name"
+
+  chmod 755 filename.sh
+  
+  echo "name is &name , and date is $(date)" 
+  echo "enter the name:"
+  read username        #here code has been stopped and they take the user name 
+  echo "you entered $username"
+
+
+where we used this is for #create user  
+
+vim createuser.sh
+
+#!/bin/bash 
+
+read -p "Enter username" username
+
+echo "you entered $username"
+sudo useradd  -m $username
+echo "user added"
+
+bash createuser.sh
+
+output
+
+new user added &  how to check where user added or not
+
+cat /etc/passwd
+
+
+Arguments:
+
+if your write 1 file
+arti.sh ----- # ---is the argument
+here 
+arti.sh arti bhima
+arti.sh is $0 argument
+arti is $1 argument
+bhima $2 argument
+
+
+
+echo 
+
+3.Conditional Expression 
+ 
+ if(condition)
+   then
+   ---
+else
+ -----
+
+
+bin/bash  #example if else
+
+read -p "$1 ne mud ke kise dekha: " bandi #$1 means we add argument then read has read this arguents
+
+if [[ $bandi == "daya bhabhi"  ]];
+then
+	echo "$1 is loyal"
+else
+	echo "$1 is not loyal"
+fi
+}
+
+#!/bin/bash
+
+<< disclaimer
+This is just for infotainment purpose
+disclaimer
+
+# This is function definition
+
+function is_loyal() {
+read -p "$1 ne mud ke kise dekha: " bandi
+read -p "$1 ka pyaar %" pyaar
+
+if [[ $bandi == "daya bhabhi"  ]];
+then
+	echo "$1 is loyal"
+elif [[ $pyaar -ge 100 ]];
+then
+	echo "$1 is loyal"
+else
+	echo "$1 is not loyal"
+fi
+}
+
+# This is function call
+is_loyal "tom"
+   
+
+loop: again and again
+Script for loop like FOR and While
+
+for ((i=1 ; i<=5 ; i++));
+explanation: i=1 this variable provides no, i<=5 only 5, i++ means increment order
+
+for-loop.sh #shell scripting file
+
+#!/bin/bash
+for ((i=1 ; i<=5 ; i++))do
+   mkdir demo
+done
+
+here we got 5 demo foldr but we want demo1, demo2, demo3 .. 
+
+#!/bin/bash
+for (i=1 ; i<=5 ; i++); #understand here 1 is start range and 5 is end range 
+do
+   mkdir demo$i
+done
+
+<<task 
+$1 is argument 1 which is folder name
+$2 is start range
+$3 is end range
+task
+
+
+for ((i=$2 ; i<=$3 ; i++))
+do
+mkdir  "$1$i"
+done
+
+
+./shript.sh day 01 10   #here Day is folder name, 01 is start range , 10 is end range and we created 10 folder
+
+rm -r day*   #deleted all folder
+
+While then (jab the koi condition satisfied hai tab tak loop chalta rahega)
+
+#!/bin/bash
+
+num=0 or 5
+
+while [[$num -le 5]]   #here le means lesstahn equal to
+do
+  echo print any  #in this condition we take num=0 this condition always true so you can increase num
+  num=$num+1
+done 
+
+odd no example for interview chek on chatgpt
+
+#!/bin/bas
+num=0
+while [[(($num % 2))  0 && $num -le 10]]
+do
+ echo $num
+ num=$((num+1))
+done
+
+Function: it is reusable.
+example
+
+#!/bin/bash
+
+<< disclaimer
+This is just for infotainment purpose
+disclaimer
+
+# This is function definition
+
+function is_loyal() {
+read -p "$1 ne mud ke kise dekha: " bandi
+read -p "$1 ka pyaar %" pyaar
+
+if [[ $bandi == "daya bhabhi"  ]];
+then
+	echo "$1 is loyal"
+elif [[ $pyaar -ge 100 ]];
+then
+	echo "$1 is loyal"
+else
+	echo "$1 is not loyal"
+fi
+}
+
+# This is function call
+is_loyal "tom"
+
+
+DAY 03
+
+Error Handling
+
+we use if and then (here try and catch is not work)
+
+here we create function
+
+error_handling.sh
+
+#!/bin/bash
+create_directory(){
+       mkdir demo
+}
+create_directory
+
+echo this should do not work because the code is interrupted
+
+created demo folder
+again run .sh file
+A demo already exists, but the script runs. It's not a good way. If a demo folder is available, then stop that script.
+
+
+we handle error
+
+#!/bin/bash
+create_directory(){
+       mkdir demo
+}
+if ! create_directory; then 
+     echo the code is being exited as the directory already exists.
+     exit 1
+fi
+echo this should do not work because the code is interrupted
+
+
+exmples
+vim deploy_django_app.sh from start to end.
+
+#!/bin/bash
+
+<<task
+  deploy Django app
+  and handle the code for error
+task
+
+code clone(){                         *this is first function*
+
+    echo cloning the Django app
+    git clone link
+}
+
+ install_requirement(){
+      echo installing dependencies
+     sudo apt instatll docker.io nginx -y
+}
+
+required_restart(){
+   sudo chown $USER /var/run/docker.sock           £here we give perrmiision to current user for handle or use this file
+  sudo systemctl enable docker
+ sudo systemctl enable nginx
+ sudo systemctl restart docker
+}
+
+
+deploy(){
+    docker build -t notes-app .
+    docker run -d -p 8000:8000 notes-app:latest
+}
+
+echo "deployment started"
+
+if ! code_clone; then
+   echo "the code directory already exist"
+  cd Djengo-notes-app
+fi
+
+if ! install_requiremnet; then 
+    echo "installation failed"
+    exit 1
+fi 
+
+if ! required_restart; then
+    echo "system fault identified"
+    exit 1
+
+fi
+
+if !deploy ; then
+    echo "deployment failed, mailing the admin"
+    sendmail
+    exit 1
+fi 
+
+echo "Deployment ended"
+
+chmod 700 
+
+
+eroor handling: check it again
+
+
+Advanced scritping and debugging
+
+here we connect AWS account to shell scripting
+created EC2 on aws.
+
+Day 05
+
+Real world application and integration
+
+makefile formate
+
+build:
+docker build  -t
+tag name
+
+Run:
+ docker run
+
+up:
+build and run
+
+clean:
+docker syten prune -y
+
+#here when we run make build , only build pert will be run.
+
+Two tier flask app
+for this app we create make file
+
+vim makefile  #
+
+
+DOCKER_COMPOSE := docker-compose
+
+OS := $(shell name)
+
+build:
+      @echo Running in $(OS)
+      $(DOCKER_COMPOSE) build
+
+up:
+      $(DOCKER_COMPOSE) up -d
+
+up:
+      $(DOCKER_COMPOSE) down -d
+
+clean:
+      docker system prune -y
+
+
+run make build  #here we build
+
+*BACKUP AND ROTTAION OF SERVER OR DIRECTORY
+
+example: we want take backup of our project
+BP1, BP@, .... BP30 :here we have 30 day backup
+project: 1gb, backup:30gb not good 
+so we compress using zip, tar but we can store that much backup, storage also problem 
+so we use rotation.
+
+we only put 5 day backup and other will be deleted automatically : using rotation
+
+backup.sh
+
+#!/bin/bash
+
+<<redme
+this is cript for backup with 5 day rotation
+usage:
+./backup.sh <path to your source> < path to backup folder> 2 arguments
+
+redme
+
+function display_usage() {
+
+echo Usages: ./backup.sh <path to your source> < path to backup folder>
+}
+
+if [[$# -eq 0] then
+  display_usage
+
+fi
+source_dir=$1
+timestamp=$date +%Y-%M-%D-%H-%M-%S
+backup_dir=$2
+
+function craete_backup{
+   
+  zip -r ${backup_dir/backup_$timestamp}:zip  ${source_dir} 
+if [$? -eq 0]; then    #?$ means above command   
+  echo backup generated
+
+}
+create_backup
+
+function perform_rotation {
+backups=$(ls -t  ${backup_dir}/backup_*:zip 2 >/dev/null))
+echo ${backup[@]}
+}
+
+prform_rotation
+
+
+
+
+
+
+				

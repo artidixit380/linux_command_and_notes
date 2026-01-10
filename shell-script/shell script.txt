@@ -1,0 +1,251 @@
+
+ SHELL   SCRIPTING 
+
+File and Directory Management -> cp, mv, rm, mkdir
+
+ls	           Lists files and directories	                                          ls
+cd	        Changes the current directory	                                  cd /home/user/Documents
+pwd	       Displays the current directory path	                          pwd
+mkdir	   Creates a new directory	                                          mkdir new_directory
+rm	       Removes files or directories	                                      rm file.txt
+cp	      Copies files or directories	                                         cp file1.txt file2.txt
+mv	      Moves or renames files and directories	                 mv old_name new_name
+touch	  Creates an empty file or updates file timestamps	 touch newfile.txt
+
+Navigation -> cd, pwd, ls
+
+Text Processing -> cat, grep, sort, head
+
+cat	     Displays the contents of a file	                                   cat file.txt
+grep	Searches for a pattern in a file                                 	grep "error" log.txt
+sort	    Sorts the contents of a file	                                        sort file.txt
+head	Displays the first few lines of a file	                            head file.txt
+tail       Displays the last few lines of a file	                            tail file.txt
+wc	     Counts the lines, words, and characters in a file   	wc file.txt
+Echo     printing the text                                                           Echo " im arti"
+
+System Monitoring -> top, ps, df
+
+top	Displays real-time system information (CPU, memory)	       top
+ps	Displays the list of running processes	                                       ps aux
+kill	Terminates a process by its ID	                                                   kill 1234
+df	     Displays disk space usage	                                                       df -h
+
+Permissions and Ownership -> chmod, chown, chgrp
+
+chmod	Changes file permissions	                                chmod 755 file.txt
+chown	   Changes file owner and group	                   chown user:group file.txt
+chgrp	   Changes file group ownership	                   chgrp group file.txt
+
+
+Advanced Shell Commands
+
+find	     Searches for files and directories	                                         find /home/user -name "*.txt"
+tar	    Archives files into a tarball (.tar) or extracts them	             tar -cvf archive.tar file1.txt file2.txt
+ssh	    Connects to a remote machine via SSH	                                 ssh user@remote_host
+Free     mem of machine
+nproc     cpu of machine
+ps -ef      all process 
+
+
+
+INTERVIEW QUESTIONS
+
+
+01. Write the ss to list all the process.
+        Ps -ef l awk -f " " ' {print$2}
+		
+02. Write a script print only error from remote.            
+      Curl link l grep error		
+	  
+03. Write  script to print no divided  by 3 & 5 not 15.
+    Print even , odd, divisible by 3, prime no : same question 
+
+      Divisible by 3: 3, 6, 9, 12
+      By 5: 5, 10
+
+    #
+   # divi. By3, divi by 5, not 3*5 =15
+
+    Range 1to 100 use for loop
+
+   For I in {1...100}; 
+   do
+   If ['exp $I % 3 ==0] ll [ 'exp $I % 5 == 0' ]&&  [ 'exp $I % 15' != 0 ]
+     Then 
+        Echo $i
+    Fi
+    ;
+     Done
+
+04. Script print no s in Mississippi
+      Op : 4
+     -O : ONLY
+
+    Ans: 
+     X= Mississippi 
+
+Grep -O "S" <<< " $x" l wc - l
+ Wc - l: return the no…	  
+ 
+05. What is CRONTAB? 
+		
+		
+3. How would you know the disk usage using the shell script commands?
+There are 3 different methods to check the disk usage using the shell script commands they are as follows,
+
+a. dfspace command: - This is used in checking the free disk usage in terms of megabytes.
+
+b. df command: - This is used to check the free disk space
+
+c. du command: - This is used to check the directory wise disk usage
+
+Also Read: DevOps Automation
+
+06. What are the different communication commands used in the shell?
+The different communication commands used in the shell are as follows,
+
+motd
+news
+wall
+mail
+
+07. How many fields are present in a Crontab file and what are they?
+The Crontab files have 6 fields, they are as follows,
+
+The first 5 fields consist of fields on when to execute the commands and the 6th field is the command itself.
+
+a. minute(0-59)
+
+b. hour(0-23)
+
+c. day(1-31)
+
+d. month(1-12)
+
+e. day of the week(0-6, Sunday = 0)
+
+f. "specify the required command here"		
+
+08. Give the purpose of the shebang line.
+The shebang line is at the top of each script used to determine the engine's location and is used to execute the script. 
+
+09. Tell us about the ‘$#’ use in shell scripting.
+'$#' is used to display the total number of passed arguments to the script. 
+
+10. Differentiate between $@ and $*.
+$* considers an entire set of positional arguments as a single string whereas, $@ treats each quote argument as a separate argument.
+
+11. Can you separate hard and soft links in shell scripting? How?
+Shell scripting is a powerful approach that uses links to create shortcuts, just like Windows. Soft links do not have any specific location and can be anywhere on the same file system, and are 
+generally related to the file name. At the same time, hard links remain present on the same file system. Hard links are related to nodes and have a particular fixed location in most cases.
+
+
+12. Name two files of the crontab command. 
+The two crontab command files are:
+
+cron. deny- decides the user that needs to be prevented from using crontab command
+cron. allow- decides the user that needs to be permitted to use the crontab command
+		
+13. How to declare variable in ss : you have any data that you want to resuse.
+     #!/bin/bash
+	 variable_name="variable_value
+	 eg 
+	       #!/bin/bash
+	 channel="dgruploads"
+	 echo $channel
+	 
+14. How to make a ss executable.
+      chmod  +x script.sh 	 
+	  if u want execute that script
+	  . /script.sh
+	  
+15. How to pass arguments to ss.
+      #!/bin/bash
+      echo "first argument: $1"	  
+	   echo "second argument: $2"	
+	   #$0 holds the script name
+	   execute: . /scrpit.sh chennel dgruploads
+	   
+16. How to check if file exist in ss.    # -e indicate existance
+      #!/bin/bash
+	  if [ -e  /var/www/html/index.html ]; then  
+	     echo " file exist"
+		 else
+
+		 echo " file does not exist"
+		 fi
+		 
+17. How do you write loop that iterates over a list of item.    #item is itrate value
+      #!?bin/bash
+	  for item in file1, file2, file3 ; do 
+	   echo $item
+	   done
+	   
+18. How can you redirect both stdout and stderr to a file.
+     use &> : redirect both stdout and stderr & error msg to output.log
+	 
+     ls /nonexistent &> output.log	 
+	  
+19. How to you schedule cron job to run script every day at midnight?
+     crontab -e   #run this cmd  and in that just add below lone
+	 0 0 * * * /home/ubuntu/script.sh   (m, h, day, month, weekday)
+	 
+20. How to find and replace text in file using ss
+      sed: stream editor, use for find and replace, g : global means all word , i- edit the file
+      sed -i 's/oldtext/newtext/g' file.name.
+
+21. How do you read user input in a ss.
+      read : capture user input
+     #!/bin/bash
+      echo "Enter your name:"
+       read name
+       echo " hello, $name"
+
+22. how do you check exist status of cmd in ss.
+      $? : exist status of last executed cmd	   
+      #!/bin/bash
+	  ls /home/ununtu
+	  if [$? -eq 0]; then 
+	   echo "command succeeded"
+	   else
+	   echo " command failed"
+	   fi
+	   
+23. How do you craete function in ss.
+      #!/bin/bash
+     my-function()
+    {
+          echo "This is function"
+      }
+     my_function
+
+24. How do you append text to a file in ss.
+     >> : to append text & overwrite but not delete your old data.
+	 > : overwrite the new data & first data will be deleted.
+    echo "New text" >> file.name 	 
+	 
+25. How do you get current date and time in ss
+     
+    #!/bin/bash
+    current_date= $(date)
+     echo $current_date
+	 
+26. How to handle error in ss.
+     set -e : used for handling error
+    #!/bin/bash
+    set -e
+    trap 'echo " error occured at line $LINENO" ' ERR
+
+27. How do you parse CSV file in ss.
+    IFS: to set delimitor and read the file line by line.
+    #!/bin/bash
+     while IFS=,  read -r column1 column2 column3: do
+     echo " column1 : $column1,  column2: $column2, column3: $column3"
+done <filename.csv
+
+    filename.csv is a input file	 
+
+	 
+
+
